@@ -14,21 +14,21 @@
         <tbody>
             {#if height === 100}
                 <tr>
-                    <td class="tbMini"><button class="button">1</button></td>
-                    <td class="tbMini"><button class="button">2</button></td>
-                    <td class="tbMini"><button class="button">3</button></td>
-                    <td class="tbMini"><button class="button">4</button></td>
-                    <td class="tbMini"><button class="button">5</button></td>
-                    <td class="tbMini"><button class="button del">del</button></td>
+                    <td class="tbMini"><button class="buttonMin">1</button></td>
+                    <td class="tbMini"><button class="buttonMin">2</button></td>
+                    <td class="tbMini"><button class="buttonMin">3</button></td>
+                    <td class="tbMini"><button class="buttonMin">4</button></td>
+                    <td class="tbMini"><button class="buttonMin">5</button></td>
+                    <td class="tbMini"><button class="buttonMin del">del</button></td>
                 </tr>
 
                 <tr>
-                    <td class="tbMini"><button class="button">6</button></td>
-                    <td class="tbMini"><button class="button">7</button></td>
-                    <td class="tbMini"><button class="button">8</button></td>
-                    <td class="tbMini"><button class="button">9</button></td>
-                    <td class="tbMini"><button class="button">0</button></td>
-                    <td class="tbMini"><button class="button">.</button></td>
+                    <td class="tbMini"><button class="buttonMin">6</button></td>
+                    <td class="tbMini"><button class="buttonMin">7</button></td>
+                    <td class="tbMini"><button class="buttonMin">8</button></td>
+                    <td class="tbMini"><button class="buttonMin">9</button></td>
+                    <td class="tbMini"><button class="buttonMin">0</button></td>
+                    <td class="tbMini"><button class="buttonMin">.</button></td>
                 </tr>
             {:else}
                 <tr>
@@ -78,7 +78,8 @@
     }
     .container {
         position: absolute;
-        bottom: 150px;
+        bottom: 50px;
+        left: 30%;
         width: 600px;
         background-color: red;
         margin: 5vh auto;
@@ -133,5 +134,14 @@
         width: 100px;
         height: 50%;
         text-align: center;
+    }
+    .buttonMin {
+        width: 95%;
+        height: 80%;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 25px;
+        border-radius: 10px;
+        border: 2px solid black;
     }
 </style>
