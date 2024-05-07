@@ -1,19 +1,38 @@
 <script>
+    import { writable } from 'svelte/store';
+    import { onMount } from 'svelte';
+
     export let addToExpression
     export let clearInput
     export let delChar
     export let calcul
 
-    $: height = 410;
+    let calculatorHeight = writable(localStorage.getItem('calculatorHeight') || 410);
+    $: height = $calculatorHeight;
 
     function change() {
-        if (height === 410) {
-            height -= 310;
-        } else height += 310;
+        if (height  === 410) {
+            calculatorHeight.update(h => {
+                localStorage.setItem('calculatorHeight', h - 310);
+                return h - 310;
+            });
+        } else {
+            calculatorHeight.update(h => {
+                localStorage.setItem('calculatorHeight', h + 310);
+                return h + 310;
+            });
+        }
     }
+
+    onMount(() => {
+        const savedHeight = localStorage.getItem('calculatorHeight');
+        if (savedHeight) {
+            calculatorHeight.set(parseInt(savedHeight));
+        }
+    });
 </script>
 
-<div class="container" style="height: {height}px">
+<div class="container" style="height: {$calculatorHeight}px">
     <button id="changeSize" on:click={change}></button>
     <table>
         <tbody>

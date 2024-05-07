@@ -9,6 +9,8 @@
     export let selectedItem
     export let obj
     export let selectedItemUnder
+    export let objUnder
+    export let RemoveItemFromObjUnder
 
 </script>
 
@@ -39,9 +41,13 @@
                                 {#if currency.code === obj.code}
                                     <p>Базовая валюта</p>
                                     <img class="star"src="https://img.freepik.com/premium-vector/business-icon_518965-432.jpg?w=740" alt="star">
+                                {:else if objUnder.some(item => item.code === currency.code)}
+                                <button on:click={() => RemoveItemFromObjUnder(currency)} class="return">Убрать из списка</button>
                                 {:else}
-                                    <button on:click={() => selectedItemUnder(currency)} class="add"><svg class='arrowMin' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 975.9 975.9" style="enable-background:new 0 0 975.9 975.9;" xml:space="preserve"><g><path d="M386.842,940.801c23.4,23.399,54.101,35.1,84.9,35.1s61.4-11.7,84.9-35.1l368-368l0,0c19.6-19.601,33.199-47.601,35-75.4 c0.5-7.9,0.5-16.5-0.7-24.3c-2.2-15-6.5-29.601-13.9-42.9c-5.5-9.899-12.399-19.1-20.399-27.1l0,0l-368-368 c-46.9-46.801-122.9-46.801-169.801,0c-46.899,46.899-46.899,122.8,0,169.699L549.942,367.9h-414c-66.3,0-120,53.7-120,120 s53.7,120,120,120h414l-163.101,163.2C339.942,818,339.942,894,386.842,940.801z"/></g>
-                                    </svg>в котируемую валюту</button>
+                                    {#if objUnder.length < 10}
+                                        <button on:click={() => selectedItemUnder(currency)} class="add"><svg class='arrowMin' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 975.9 975.9" style="enable-background:new 0 0 975.9 975.9;" xml:space="preserve"><g><path d="M386.842,940.801c23.4,23.399,54.101,35.1,84.9,35.1s61.4-11.7,84.9-35.1l368-368l0,0c19.6-19.601,33.199-47.601,35-75.4 c0.5-7.9,0.5-16.5-0.7-24.3c-2.2-15-6.5-29.601-13.9-42.9c-5.5-9.899-12.399-19.1-20.399-27.1l0,0l-368-368 c-46.9-46.801-122.9-46.801-169.801,0c-46.899,46.899-46.899,122.8,0,169.699L549.942,367.9h-414c-66.3,0-120,53.7-120,120 s53.7,120,120,120h414l-163.101,163.2C339.942,818,339.942,894,386.842,940.801z"/></g>
+                                        </svg>в котируемую валюту</button>
+                                    {/if}
                                 {/if}
                             </td>
                         </tr>
@@ -154,6 +160,7 @@
         color: grey;
         font-size: 20px;
     }
+    .return,
     .add {
         position: absolute;
         right: 10px;
@@ -163,6 +170,9 @@
         border: none;
         background-color: white;
         color: LightGray;
+    }
+    .add:active {
+        color: black;
     }
     .arrowMin {
         width: 20px;

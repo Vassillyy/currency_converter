@@ -12,7 +12,9 @@
         else if (expression === '' && !isFinite(value)) {
             expression += '';
         }
-        else expression += value;
+        else {
+            expression += value;
+        }
     }
 
     function clearInput() {
@@ -31,10 +33,12 @@
             else if (eval(expression) % 0.1 === 0) {
                 expression = eval(expression).toFixed(1).toString();
             }
-            else expression = eval(expression).toFixed(2).toString();
+            else {
+                expression = eval(expression).toFixed(2).toString();
+            }
         }
         catch(error) {
-            expression = 'Error';
+            expression = '';
         }
     }
 
@@ -65,15 +69,20 @@
 
     function selectedItemUnder(currency) {
         objUnder = [...objUnder, {code: currency.code, name: currency.name, src: currency.src}]
-        addList = false;
     }
+
+    function RemoveItemFromObjUnder(currency) {
+        objUnder = objUnder.filter(item => item.code !== currency.code);
+        objUnder = objUnder;
+    }
+
 </script>
 
 <div>
     {#if addList}
-        <List {closeList} {obj} {selectedItem} {selectedItemUnder}/>
+        <List {closeList} {obj} {selectedItem} {selectedItemUnder} {objUnder} {RemoveItemFromObjUnder}/>
     {:else}
-        <Header {expression} {openList} {obj} {objUnder}/>
+        <Header {expression} {openList} {obj} {objUnder} {RemoveItemFromObjUnder} />
         <Calcul {calcul} {delChar} {clearInput} {addToExpression} />
     {/if}  
 </div>

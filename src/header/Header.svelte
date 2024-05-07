@@ -2,12 +2,10 @@
     import AddCurrency from "./AddCurrency.svelte";
 
     export let expression
-
     export let openList
-
     export let obj
-
     export let objUnder
+    export let RemoveItemFromObjUnder
 
     function handleKeydown(event) {
         if (!((event.key >= "0" && event.key <= "9") || event.key === ".")) {
@@ -31,7 +29,7 @@
     </div>
 </div>
 
-<AddCurrency {openList} {objUnder}/>
+<AddCurrency {openList} {objUnder} {RemoveItemFromObjUnder} {obj} {expression}/>
 
 <style>
     .container {
