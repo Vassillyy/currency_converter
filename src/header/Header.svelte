@@ -6,6 +6,7 @@
     export let obj
     export let objUnder
     export let RemoveItemFromObjUnder
+    export let  flagAnswer
 
     function handleKeydown(event) {
         if (!((event.key >= "0" && event.key <= "9") || event.key === ".")) {
@@ -29,7 +30,7 @@
     </div>
 </div>
 
-<AddCurrency {openList} {objUnder} {RemoveItemFromObjUnder} {obj} {expression}/>
+<AddCurrency {openList} {objUnder} {RemoveItemFromObjUnder} {obj} {expression} {flagAnswer} />
 
 <style>
     .container {

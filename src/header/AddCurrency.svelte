@@ -6,6 +6,7 @@
     export let objUnder
     export let RemoveItemFromObjUnder
     export let expression
+    export let flagAnswer
 
     $: rates = [];
 
@@ -23,16 +24,21 @@
     })
 
     function formatLargeNumber(num) {
-        let strNum = num.toFixed(2);
-        let length = strNum.length;
-        if (length <= 6) {
-            return strNum;
-        } else {
-            let srartStr = strNum.slice(0, 5);
-            let exponent = length - 5; 
-            return `${srartStr} * 10^${exponent}`;
+        let numStr = num.toFixed(2);
+        if (numStr.length < 7) {
+            return numStr;
+        }
+        else {
+            let length = numStr.length;
+            let startStr = numStr.slice(0, 5);
+            let exponent = length - 6;
+            while (startStr.at(-1) === '.' || startStr.at(-1) === '0') {
+                startStr = startStr.slice(0, -1);
+            }
+            return `${startStr} * 10^${exponent}`;
         }
     }
+
 </script>
 
 {#each objUnder as item (item.code)}
@@ -48,7 +54,11 @@
                 <div class="rate">1 {obj.code} = {rates[item.code]} {item.code}</div>
             {/await}
         </div>
-        <div class="numbers">{formatLargeNumber(+expression * rates[item.code])}</div>
+        {#if flagAnswer}
+           <div class="numbers">{formatLargeNumber(+expression * rates[item.code])}</div>
+        {:else}
+            <div class="numbers">0</div>
+        {/if}
         <button on:click={RemoveItemFromObjUnder(item)} class="remove"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 94.926 94.926" style="enable-background:new 0 0 94.926 94.926;" xml:space="preserve"><g><path d="M55.931,47.463L94.306,9.09c0.826-0.827,0.826-2.167,0-2.994L88.833,0.62C88.436,0.224,87.896,0,87.335,0 c-0.562,0-1.101,0.224-1.498,0.62L47.463,38.994L9.089,0.62c-0.795-0.795-2.202-0.794-2.995,0L0.622,6.096 c-0.827,0.827-0.827,2.167,0,2.994l38.374,38.373L0.622,85.836c-0.827,0.827-0.827,2.167,0,2.994l5.473,5.476 c0.397,0.396,0.936,0.62,1.498,0.62s1.1-0.224,1.497-0.62l38.374-38.374l38.374,38.374c0.397,0.396,0.937,0.62,1.498,0.62 s1.101-0.224,1.498-0.62l5.473-5.476c0.826-0.827,0.826-2.167,0-2.994L55.931,47.463z"/></g></svg></button>
     </div>
     {/if}
@@ -136,7 +146,7 @@
         padding: 10px 0;
         padding-right: 15px;
         position: absolute;
-        right: 0;
+        right: 20px;
         text-align: right;
         font-size: 10px;
         font-style: italic;
@@ -144,19 +154,21 @@
         background-color: white;
     }
     .numbers {
+        box-sizing: border-box;
         width: 120px;
         height: 30px;
         position: absolute;
-        right: 20px;
+        right: 25px;
         top: 5px;
         border-radius: 0 10px 10px 0;
         border-left: 2px solid Lavender;
         text-align: right;
-        color: DarkSlateGray;
+        color: DodgerBlue;
         font-weight: 500;
         font-size: 16px;
-        padding-right: 15px;
-        background-color: yellow;
+        background-color: red;
+        padding-right: 10px;
+        padding-top: 5px;
     }
     #Capa_1 {
         width: 10px;

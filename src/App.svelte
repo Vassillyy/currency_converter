@@ -14,31 +14,38 @@
         }
         else {
             expression += value;
+            flagAnswer = false;
         }
     }
 
     function clearInput() {
         expression = '';
+        flagAnswer = false;
     }
 
     function delChar() {
         expression = expression.slice(0, -1);
+        flagAnswer = false;
     }
 
     function calcul() {
         try {
             if (eval(expression) % 1 === 0) {
                 expression = eval(expression).toString();
+                flagAnswer = true;
             }
             else if (eval(expression) % 0.1 === 0) {
                 expression = eval(expression).toFixed(1).toString();
+                flagAnswer = true;
             }
             else {
                 expression = eval(expression).toFixed(2).toString();
+                flagAnswer = true;
             }
         }
         catch(error) {
             expression = '';
+            flagAnswer = false;
         }
     }
 
@@ -76,13 +83,14 @@
         objUnder = objUnder;
     }
 
+    $: flagAnswer = false
 </script>
 
 <div>
     {#if addList}
         <List {closeList} {obj} {selectedItem} {selectedItemUnder} {objUnder} {RemoveItemFromObjUnder}/>
     {:else}
-        <Header {expression} {openList} {obj} {objUnder} {RemoveItemFromObjUnder} />
+        <Header {expression} {openList} {obj} {objUnder} {RemoveItemFromObjUnder} {flagAnswer}/>
         <Calcul {calcul} {delChar} {clearInput} {addToExpression} />
     {/if}  
 </div>
