@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
 
+     /** Описание пропсов: expression, openList, obj, objUnder, RemoveItemFromObjUnder, flagAnswer */
     export let openList
     export let obj
     export let objUnder
@@ -8,8 +9,17 @@
     export let expression
     export let flagAnswer
 
+    /**
+     * @type {Array}
+     * Массив, который хранит курс валют
+     */
     $: rates = [];
 
+    /**
+     * @async 
+     * @function
+     * Асинхронная функция для получения курсов валют (rates) с внешнего API 
+     */
     async function addRetes() {
         const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${obj.code}`);
         const data = await res.json();
@@ -23,6 +33,11 @@
         }, 100000)
     })
 
+    /**
+     * @function
+     * @param num - Полученное выражение в калькуляторе
+     * Функция для редактирования расчета
+     */
     function formatLargeNumber(num) {
         let numStr = num.toFixed(2);
         if (numStr.length < 7) {

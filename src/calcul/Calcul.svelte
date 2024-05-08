@@ -2,14 +2,28 @@
     import { writable } from 'svelte/store';
     import { onMount } from 'svelte';
 
+    /** Описание пропсов: addToExpression, clearInput, delChar, calcul */
     export let addToExpression
     export let clearInput
     export let delChar
     export let calcul
 
+    /**
+     * @type {Writable<number>}   
+     * Переменная для хранения высоты калькулятора.
+     */
     let calculatorHeight = writable(localStorage.getItem('calculatorHeight') || 410);
+
+    /**
+     * @type {number}  
+     * Переменная, которая следит за изменениями calculatorHeight и автоматически обновляет свое значение
+     */
     $: height = $calculatorHeight;
 
+    /**
+     * @function
+     * Функция для изменения высоты калькулятора
+     */
     function change() {
         if (height  === 410) {
             calculatorHeight.update(h => {

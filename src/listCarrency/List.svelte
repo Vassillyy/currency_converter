@@ -1,10 +1,16 @@
 <script>
     import { currencies } from "./currency.js";
 
+    /** Сортировка массива*/
     currencies.sort((a, b) => a.code.localeCompare(b.code));
 
+    /**
+     * @type {string}
+     * Переменная для хранения заголовков списка
+     */
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    /** Описание пропсов: closeList, selectedItem, obj, selectedItemUnder, objUnder, RemoveItemFromObjUnder */
     export let closeList
     export let selectedItem
     export let obj

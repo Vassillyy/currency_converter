@@ -1,6 +1,7 @@
 <script>
     import AddCurrency from "./AddCurrency.svelte";
 
+    /** Описание пропсов: expression, openList, obj, objUnder, RemoveItemFromObjUnder, flagAnswer */
     export let expression
     export let openList
     export let obj
@@ -8,6 +9,11 @@
     export let RemoveItemFromObjUnder
     export let  flagAnswer
 
+    /**
+     * @function
+     * @param event - Событие
+     * Функция которая не дает вводить символы кроме 0 - 9 и .
+     */
     function handleKeydown(event) {
         if (!((event.key >= "0" && event.key <= "9") || event.key === ".")) {
             event.preventDefault();
