@@ -12,6 +12,9 @@
         else if (expression === '' && !isFinite(value)) {
             expression += '';
         }
+        else if (expression.includes('.') && value === '.') { 
+            expression += '';
+        }
         else {
             expression += value;
             flagAnswer = false;

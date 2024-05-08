@@ -50,15 +50,16 @@
             <div class="name">{item.name}</div>
             {#await  addRetes()}
                 <div class="text">Загрузка</div>
+                <div class="numbers">Загрузка</div>
             {:then rates} 
                 <div class="rate">1 {obj.code} = {rates[item.code]} {item.code}</div>
+                {#if flagAnswer}
+                    <div class="numbers">{formatLargeNumber(+expression * rates[item.code])}</div>
+                {:else}
+                    <div class="numbers">0</div>
+                {/if}
             {/await}
         </div>
-        {#if flagAnswer}
-           <div class="numbers">{formatLargeNumber(+expression * rates[item.code])}</div>
-        {:else}
-            <div class="numbers">0</div>
-        {/if}
         <button on:click={RemoveItemFromObjUnder(item)} class="remove"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 94.926 94.926" style="enable-background:new 0 0 94.926 94.926;" xml:space="preserve"><g><path d="M55.931,47.463L94.306,9.09c0.826-0.827,0.826-2.167,0-2.994L88.833,0.62C88.436,0.224,87.896,0,87.335,0 c-0.562,0-1.101,0.224-1.498,0.62L47.463,38.994L9.089,0.62c-0.795-0.795-2.202-0.794-2.995,0L0.622,6.096 c-0.827,0.827-0.827,2.167,0,2.994l38.374,38.373L0.622,85.836c-0.827,0.827-0.827,2.167,0,2.994l5.473,5.476 c0.397,0.396,0.936,0.62,1.498,0.62s1.1-0.224,1.497-0.62l38.374-38.374l38.374,38.374c0.397,0.396,0.937,0.62,1.498,0.62 s1.101-0.224,1.498-0.62l5.473-5.476c0.826-0.827,0.826-2.167,0-2.994L55.931,47.463z"/></g></svg></button>
     </div>
     {/if}
@@ -71,6 +72,89 @@
 {/if}
 
 <style> 
+    .items {
+        width: 600px;
+        height: 40px;
+        margin: 5px auto 0 auto;
+        background-color: Lavender;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .block {
+        width: 560px;
+        height: 30px;
+        background-color: white;
+        border-radius: 10px 10px 10px 10px;
+        position: absolute;
+        left: 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .flag {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 0.3px solid black;
+        margin-left: 10px;
+    }
+    .code {
+        width: 50px;
+        font-weight: 500;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+    .name {
+        color: gray;
+        font-size: 14px;
+        margin-left: 6px;
+    }
+    .text {
+        text-align: right;
+        font-size: 10px;
+        font-style: italic;
+        color: CadetBlue;
+        position: absolute;
+        right: 120px;
+        margin-right: 10px;
+    } 
+   .numbers {
+        box-sizing: border-box;
+        width: 120px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+        border-radius: 0 10px 10px 0;
+        border-left: 2px solid Lavender;
+        text-align: right;
+        color: DodgerBlue;
+        font-weight: 500;
+        font-size: 16px;
+        padding-right: 10px;
+        padding-top: 5px;
+    }
+    .rate {
+        box-sizing: border-box;
+        height: 100%;
+        width: 110px ;
+        margin: 0;
+        padding: 10px 10px 10px 0;
+        position: absolute;
+        right: 120px;
+        text-align: right;
+        font-size: 10px;
+        font-style: italic;
+        color: CadetBlue;
+    }
+    #Capa_1 {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        right: 5px;
+    }
     .container {
         width: 600px;
         height: 40px;
@@ -98,91 +182,5 @@
         position: absolute;
         left: 160px;
         top: 10px;
-    }
-    .items {
-        width: 600px;
-        height: 40px;
-        margin: 5px auto 0 auto;
-        background-color: Lavender;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-    .block {
-        width: 430px;
-        height: 30px;
-        background-color: white;
-        border-radius: 10px 0 0 10px;
-        position: absolute;
-        left: 20px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    .flag {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 0.3px solid black;
-        margin-left: 10px;
-    }
-    .code {
-        font-weight: 500;
-        font-size: 20px;
-        margin-left: 10px;
-    }
-    .name {
-        color: gray;
-        font-size: 14px;
-        margin-left: 10px;
-    }
-    .rate {
-        box-sizing: border-box;
-        height: 100%;
-        width: 120px ;
-        margin: 0;
-        padding: 10px 0;
-        padding-right: 15px;
-        position: absolute;
-        right: 20px;
-        text-align: right;
-        font-size: 10px;
-        font-style: italic;
-        color: CadetBlue;
-        background-color: white;
-    }
-    .numbers {
-        box-sizing: border-box;
-        width: 120px;
-        height: 30px;
-        position: absolute;
-        right: 25px;
-        top: 5px;
-        border-radius: 0 10px 10px 0;
-        border-left: 2px solid Lavender;
-        text-align: right;
-        color: DodgerBlue;
-        font-weight: 500;
-        font-size: 16px;
-        background-color: red;
-        padding-right: 10px;
-        padding-top: 5px;
-    }
-    #Capa_1 {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        right: 5px;
-    } 
-    .text {
-        text-align: right;
-        font-size: 10px;
-        font-style: italic;
-        color: CadetBlue;
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
     }
 </style>
